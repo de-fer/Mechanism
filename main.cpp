@@ -1,9 +1,10 @@
-#include <iostream>
+#include "model.hpp"
 
-using namespace std;
+#include <iostream>
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    Model model;
+    model.run();
     return 0;
 }
