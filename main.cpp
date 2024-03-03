@@ -1,4 +1,5 @@
 #include "model.hpp"
+#include "object.hpp"
 
 #include <iostream>
 

@@ -12,11 +12,14 @@ public:
     ~Model();
     void run();
 private:
-    void load_settings();
+    void loadSettings();
     Window_settings ws;
     void applyHints();
+
     void createWindow();
     GLFWwindow* window;
+
+    void display();
 };
 
 #endif // MODEL_HPP

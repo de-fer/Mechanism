@@ -9,7 +9,7 @@ using json = nlohmann::json;
 
 Model::Model()
 {
-    this->load_settings();
+    this->loadSettings();
 
     //инициализация glfw
     try
@@ -39,7 +39,7 @@ void Model::run()
     }
 }
 
-void Model::load_settings()
+void Model::loadSettings()
 {
     std::ifstream f("settings.json");
     if (f.is_open())
