@@ -2,13 +2,25 @@
     "window":
     {
         "fullscreen": false,
-        "width": 1920,
-        "height": 1080,
+        "width": 1000,
+        "height": 600,
         "bg_color":
         {
             "r": 0.8,
             "g": 0.8,
-            "b": 0.8
-        }
+            "b": 0.8,
+            "a": 1.0
+        },
+
+        "RESIZABLE": true,
+        "DECORATED": true,
+        "FOCUSED": false,
+        "FLOATING": false,
+        "MAXIMIZED": false,
+        "CENTER_CURSOR": false,
+        "TRANSPARENT_FRAMEBUFFER": false,
+        "MOUSE_PASSTHROUGH": false,
+        "POSITION_X": 300,
+        "POSITION_Y": 300
     }
 }

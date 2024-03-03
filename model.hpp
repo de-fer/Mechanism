@@ -14,6 +14,7 @@ public:
 private:
     void load_settings();
     Window_settings ws;
+    void applyHints();
     void createWindow();
     GLFWwindow* window;
 };
