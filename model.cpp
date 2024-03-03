@@ -21,6 +21,7 @@ Model::Model()
     {
         std::cerr << e.what() << std::endl;
     }
+    this->objects.at(0).loadFromFile("..\\..\\objects\\triangle.txt");
 }
 
 Model::~Model()
@@ -34,6 +35,7 @@ void Model::run()
     {
         glfwPollEvents(); //обработка ивентов окна
         glClear(GL_COLOR_BUFFER_BIT);
+        this->display();
         glFlush();
         glfwSwapBuffers(this->window);
     }
@@ -115,4 +117,9 @@ void Model::createWindow()
             "Mechanism", nullptr, nullptr);
     glfwMakeContextCurrent(this->window);
     glClearColor(this->ws.bg_r, this->ws.bg_g, this->ws.bg_b, this->ws.bg_a); //заливка заднего фона
+}
+
+void Model::display()
+{
+    this->objects.at(0).draw();
 }

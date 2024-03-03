@@ -2,8 +2,10 @@
 #define MODEL_HPP
 
 #include "settings.hpp"
+#include "object.hpp"
 
 #include <GLFW/glfw3.h>
+#include <vector>
 
 class Model
 {
@@ -20,6 +22,7 @@ private:
     GLFWwindow* window;
 
     void display();
+    std::array<Object,1> objects;
 };
 
 #endif // MODEL_HPP
