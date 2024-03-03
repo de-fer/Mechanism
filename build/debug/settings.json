@@ -1,0 +1,14 @@
+{
+    "window":
+    {
+        "fullscreen": false,
+        "width": 1920,
+        "height": 1080,
+        "bg_color":
+        {
+            "r": 0.8,
+            "g": 0.8,
+            "b": 0.8
+        }
+    }
+}

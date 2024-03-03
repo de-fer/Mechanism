@@ -7,9 +7,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
 add_executable(Mechanism main.cpp
-    model.hpp model.cpp)
+    model.hpp model.cpp
+    settings.hpp)
 
 include(GNUInstallDirs)
 install(TARGETS Mechanism
@@ -20,4 +22,5 @@ install(TARGETS Mechanism
 target_link_libraries(${PROJECT_NAME} PRIVATE
     glfw
     OpenGL::GL
+    nlohmann_json::nlohmann_json
 )

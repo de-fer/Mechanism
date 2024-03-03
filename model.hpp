@@ -1,6 +1,8 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 
+#include "settings.hpp"
+
 #include <GLFW/glfw3.h>
 
 class Model
@@ -10,8 +12,9 @@ public:
     ~Model();
     void run();
 private:
+    void load_settings();
+    Window_settings ws;
     void createWindow();
-
     GLFWwindow* window;
 };
 
