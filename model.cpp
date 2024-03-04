@@ -1,6 +1,7 @@
 #include "model.hpp"
 
 #include <iostream>
+#include <string>
 #include <exception>
 #include <stdexcept>
 #include <fstream>
@@ -21,7 +22,7 @@ Model::Model()
     {
         std::cerr << e.what() << std::endl;
     }
-    this->objects.at(0).loadFromFile("..\\..\\objects\\triangle.txt");
+    this->objects.at(0).loadFromFile("triangle.txt");
 }
 
 Model::~Model()
@@ -42,6 +43,7 @@ void Model::run()
     }
 }
 
+extern std::string DATA_PATH; //путь к папке data
 void Model::loadSettings()
 {
     std::ifstream f("settings.json");
@@ -50,7 +52,9 @@ void Model::loadSettings()
         std::cout << "model:File is open!" << std::endl;
         try
         {
-            json data = json::parse(f)["window"];
+            json data = json::parse(f);
+            DATA_PATH = data["data_path"]; //сохраняем путь к папке data
+            data = data["window"];//переходим в настройки window
             //std::cout << data << std::endl;
 
             //записываем считанные параметры

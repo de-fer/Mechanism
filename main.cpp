@@ -1,7 +1,8 @@
 #include "model.hpp"
 #include "object.hpp"
+#include <string>
 
-#include <iostream>
+std::string DATA_PATH;
 
 int main()
 {

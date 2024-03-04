@@ -40,9 +40,11 @@ void Object::draw()
     glDisableClientState(GL_COLOR_ARRAY);
 }
 
+#include <string>
+extern std::string DATA_PATH;
 void Object::loadFromFile(const char* fileName)
 {
-    std::ifstream f(fileName);
+    std::ifstream f(DATA_PATH + "objects\\" + fileName);
     if (f.is_open())
     {
         std::string line;
