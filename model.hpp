@@ -3,6 +3,7 @@
 
 #include "settings.hpp"
 #include "object.hpp"
+#include "src/Camera/camera.hpp"
 
 #include <GLFW/glfw3.h>
 #include <vector>
@@ -22,6 +23,8 @@ private:
     GLFWwindow* window;
 
     void display();
+    Camera camera;
+    void scene();
     std::array<Object,1> objects;
 };
 

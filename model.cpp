@@ -33,11 +33,12 @@ void Model::run()
 {
     while(!glfwWindowShouldClose(this->window))
     {
-        glfwPollEvents(); //обработка ивентов окна
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        this->camera.control(this->window);
         this->display();
         glFlush();
         glfwSwapBuffers(this->window);
+        glfwPollEvents(); //обработка ивентов окна
     }
 }
 
@@ -46,7 +47,7 @@ void Model::loadSettings()
     std::ifstream f("settings.json");
     if (f.is_open())
     {
-        std::cout << "File is open!" << std::endl;
+        std::cout << "model:File is open!" << std::endl;
         try
         {
             json data = json::parse(f)["window"];
@@ -80,12 +81,12 @@ void Model::loadSettings()
         {
             std::cerr << e.what() << std::endl;
         }
-        std::cout << "File is close!" << std::endl;
+        std::cout << "model:File is close!" << std::endl;
         f.close();
     }
     else
     {
-        std::cerr << "File isnt open!" << std::endl;
+        std::cerr << "model:File isnt open!" << std::endl;
         exit(1);
     }
 }
@@ -116,10 +117,37 @@ void Model::createWindow()
             this->ws.width, this->ws.height,
             "Mechanism", nullptr, nullptr);
     glfwMakeContextCurrent(this->window);
+
+    glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //настройки мыши
+    /* GLFW_CURSOR_NORMAL - обычный режим
+     * GLFW_CURSOR_DISABLED - курсор выключен
+     * GLFW_CURSOR_HIDDEN - курсор невидим
+     */
+
+    // glEnable(GL_LIGHTING);
+    // glEnable(GL_LIGHT0);
+    // glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_DEPTH_TEST);
+    // glEnable(GL_NORMALIZE);
+
     glClearColor(this->ws.bg_r, this->ws.bg_g, this->ws.bg_b, this->ws.bg_a); //заливка заднего фона
 }
 
 void Model::display()
 {
+    glfwGetWindowSize(this->window, &this->ws.width, &this->ws.height);
+
+    //главный вид
+    glPushMatrix();
+    glViewport(0,0,this->ws.width, this->ws.height);
+    this->camera.updateSizes(this->ws.width, this->ws.height);
+    this->camera.apply();
+    this->scene();
+    glPopMatrix();
+}
+
+void Model::scene()
+{
     this->objects.at(0).draw();
 }
+

@@ -14,6 +14,7 @@ add_executable(Mechanism main.cpp
     model.hpp model.cpp
     settings.hpp
     object.hpp object.cpp
+    src/Camera/camera.hpp src/Camera/camera.cpp
 )
 
 include(GNUInstallDirs)

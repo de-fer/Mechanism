@@ -14,13 +14,23 @@
 
         "RESIZABLE": true,
         "DECORATED": true,
-        "FOCUSED": false,
+        "FOCUSED": true,
         "FLOATING": false,
         "MAXIMIZED": false,
-        "CENTER_CURSOR": false,
+        "CENTER_CURSOR": true,
         "TRANSPARENT_FRAMEBUFFER": false,
         "MOUSE_PASSTHROUGH": false,
         "POSITION_X": 300,
         "POSITION_Y": 300
+    },
+
+    "camera":
+    {
+        "size": 0.1,
+        "speed": 0.01,
+        "speed_multiple": 4.0,
+        "near": 2,
+        "far": 10000,
+        "mouse_multiple": 0.5
     }
 }
