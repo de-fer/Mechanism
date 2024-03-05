@@ -27,7 +27,7 @@ private:
     void scene();
     void loadTextures();
     std::vector<unsigned int> textures;
-    std::array<Object,1> objects;
+    std::array<Object,3> objects;
 };
 
 #endif // MODEL_HPP

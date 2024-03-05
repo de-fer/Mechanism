@@ -24,8 +24,17 @@ Model::Model()
     //загрузка текстур
     this->loadTextures();
 
-    this->objects.at(0).loadFromFile("triangle.txt");
-    this->objects.at(0).setTexture(this->textures.at(0));
+
+    //переместить в loadScene()
+    this->objects.at(0).loadFromFile("axis.txt");
+    this->objects.at(1).loadFromFile("square.txt");
+    this->objects.at(2).loadFromFile("triangle.txt");
+    this->objects.at(1).setTexture(this->textures.at(0));
+
+    this->objects.at(1).setPosition(0,2,0);
+    this->objects.at(2).setPosition(2,0,0);
+    this->objects.at(1).setOrientation(0,0,-45);
+    this->objects.at(2).setOrientation(0,0,-45);
 }
 
 Model::~Model()
@@ -136,7 +145,8 @@ void Model::createWindow()
     // glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_DEPTH_TEST);
     // glEnable(GL_NORMALIZE);
-    glEnable(GL_TEXTURE_2D);
+
+    glLineWidth(2);
 
     glClearColor(this->ws.bg_r, this->ws.bg_g, this->ws.bg_b, this->ws.bg_a); //заливка заднего фона
 }
@@ -147,7 +157,11 @@ void Model::display()
 
     //главный вид
     glPushMatrix();
-    glViewport(0,0,this->ws.width, this->ws.height);
+    if (this->ws.width > this->ws.height) {
+        glViewport(0, (this->ws.height - this->ws.width) / 2, this->ws.width, this->ws.width);
+    } else {
+        glViewport((this->ws.width - this->ws.height) / 2, 0, this->ws.height, this->ws.height);
+    }
     this->camera.updateSizes(this->ws.width, this->ws.height);
     this->camera.apply();
     this->scene();
@@ -156,11 +170,13 @@ void Model::display()
 
 void Model::scene()
 {
-    this->objects.at(0).draw();
+    for (int i =0; i < this->objects.size(); ++i)
+        this->objects.at(i).draw();
 }
 
 #include "src/textureLoader.hpp"
 void Model::loadTextures()
 {
+    generateDefaultTexture();
     this->textures.push_back(loadTexture(DATA_PATH+"\\textures\\"+"t1.png"));
 }

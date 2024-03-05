@@ -9,7 +9,8 @@
 
 Object::Object()
 {
-
+    this->pos = glm::vec3();
+    this->orient = glm::vec3();
 }
 
 Object::~Object()
@@ -19,11 +20,18 @@ Object::~Object()
 
 void Object::draw()
 {
+    glPushMatrix();
+    glTranslatef(this->pos.x, this->pos.y, this->pos.z);
+    glRotatef(this->orient.z, 0.f, 0.f, 1.f);
+    glRotatef(this->orient.x, 1.f, 0.f, 0.f);
+    glRotatef(this->orient.y, 0.f, 1.f, 0.f);
+
     glColor3f(1.f,1.f,1.f);
     glVertexPointer(3, GL_FLOAT, 0, this->vertexes.data());
     glEnableClientState(GL_VERTEX_ARRAY);
     if (this->textured)
     {
+        glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, this->texture);
         glTexCoordPointer(2, GL_FLOAT, 0, this->uv.data());
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -41,18 +49,22 @@ void Object::draw()
     if (this->draw_frame)
     {
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-        glDisableClientState(GL_COLOR_ARRAY);
-        glColor3f(0.f,1.f,1.f);
+        //glDisableClientState(GL_COLOR_ARRAY);
         glDrawElements(GL_LINES, this->edges.size()*2, GL_UNSIGNED_INT, this->edges.data());
     }
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
-    if (this->textured) glBindTexture(GL_TEXTURE_2D, 0);
+    if (this->textured){
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glDisable(GL_TEXTURE_2D);
+    }
+
+
+    glPopMatrix();
 }
 
-#include <string>
 extern std::string DATA_PATH;
 void Object::loadFromFile(const char* fileName)
 {
@@ -129,4 +141,26 @@ void Object::loadFromFile(const char* fileName)
 void Object::setTexture(unsigned int texture)
 {
     this->texture = texture;
+}
+
+void Object::drawFrame(bool val)
+{
+    this->draw_frame = val;
+}
+void Object::drawFaces(bool val)
+{
+    this->draw_faces = val;
+}
+
+void Object::setPosition(float x, float y, float z)
+{
+    this->pos.x = x;
+    this->pos.y = y;
+    this->pos.z = z;
+}
+void Object::setOrientation(float x, float y, float z)
+{
+    this->orient.x = x;
+    this->orient.y = y;
+    this->orient.z = z;
 }
