@@ -14,6 +14,9 @@ public:
     Model();
     ~Model();
     void run();
+
+    void close();
+    void swapMouse();
 private:
     void loadSettings();
     Window_settings ws;
@@ -28,6 +31,8 @@ private:
     void loadTextures();
     std::vector<unsigned int> textures;
     std::array<Object,3> objects;
+
+    bool cursor_status = false;
 };
 
 #endif // MODEL_HPP

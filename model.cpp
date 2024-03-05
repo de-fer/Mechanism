@@ -8,6 +8,16 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
+extern Model model;
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        model.close();
+    if (key == GLFW_KEY_F1 && action == GLFW_PRESS)
+        model.swapMouse();
+}
+
+
 Model::Model()
 {
     this->loadSettings();
@@ -24,6 +34,7 @@ Model::Model()
     //загрузка текстур
     this->loadTextures();
 
+    glfwSetKeyCallback(this->window, key_callback);
 
     //переместить в loadScene()
     this->objects.at(0).loadFromFile("axis.txt");
@@ -47,7 +58,7 @@ void Model::run()
     while(!glfwWindowShouldClose(this->window))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        this->camera.control(this->window);
+        if (this->cursor_status) this->camera.control(this->window);
         this->display();
         glFlush();
         glfwSwapBuffers(this->window);
@@ -134,11 +145,7 @@ void Model::createWindow()
             "Mechanism", nullptr, nullptr);
     glfwMakeContextCurrent(this->window);
 
-    glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //настройки мыши
-    /* GLFW_CURSOR_NORMAL - обычный режим
-     * GLFW_CURSOR_DISABLED - курсор выключен
-     * GLFW_CURSOR_HIDDEN - курсор невидим
-     */
+    this->swapMouse(); //выключаем курсор
 
     // glEnable(GL_LIGHTING);
     // glEnable(GL_LIGHT0);
@@ -179,4 +186,22 @@ void Model::loadTextures()
 {
     generateDefaultTexture();
     this->textures.push_back(loadTexture(DATA_PATH+"\\textures\\"+"t1.png"));
+}
+
+void Model::close()
+{
+    glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
+void Model::swapMouse()
+{
+    if (!this->cursor_status)
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    else
+        glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    this->cursor_status = !this->cursor_status;
+    /* GLFW_CURSOR_NORMAL - обычный режим
+     * GLFW_CURSOR_DISABLED - курсор выключен
+     * GLFW_CURSOR_HIDDEN - курсор невидим
+     */
 }

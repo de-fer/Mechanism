@@ -4,9 +4,10 @@
 
 std::string DATA_PATH;
 
+Model model;
+
 int main()
 {
-    Model model;
     model.run();
     return 0;
 }
