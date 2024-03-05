@@ -11,7 +11,6 @@ using json = nlohmann::json;
 Model::Model()
 {
     this->loadSettings();
-
     //инициализация glfw
     try
     {
@@ -22,7 +21,11 @@ Model::Model()
     {
         std::cerr << e.what() << std::endl;
     }
+    //загрузка текстур
+    this->loadTextures();
+
     this->objects.at(0).loadFromFile("triangle.txt");
+    this->objects.at(0).setTexture(this->textures.at(0));
 }
 
 Model::~Model()
@@ -133,6 +136,7 @@ void Model::createWindow()
     // glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_DEPTH_TEST);
     // glEnable(GL_NORMALIZE);
+    glEnable(GL_TEXTURE_2D);
 
     glClearColor(this->ws.bg_r, this->ws.bg_g, this->ws.bg_b, this->ws.bg_a); //заливка заднего фона
 }
@@ -155,3 +159,8 @@ void Model::scene()
     this->objects.at(0).draw();
 }
 
+#include "src/textureLoader.hpp"
+void Model::loadTextures()
+{
+    this->textures.push_back(loadTexture(DATA_PATH+"\\textures\\"+"t1.png"));
+}

@@ -19,32 +19,44 @@ Object::~Object()
 
 void Object::draw()
 {
+    glColor3f(1.f,1.f,1.f);
     glVertexPointer(3, GL_FLOAT, 0, this->vertexes.data());
     glEnableClientState(GL_VERTEX_ARRAY);
-    glColorPointer(3, GL_FLOAT, 0, this->colors.data());
-    glEnableClientState(GL_COLOR_ARRAY);
+    if (this->textured)
+    {
+        glBindTexture(GL_TEXTURE_2D, this->texture);
+        glTexCoordPointer(2, GL_FLOAT, 0, this->uv.data());
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
+    else
+    {
+        glColorPointer(3, GL_FLOAT, 0, this->colors.data());
+        glEnableClientState(GL_COLOR_ARRAY);
+    }
 
     if (this->draw_faces)
     {
-        //glEnableClientState(GL_COLOR_ARRAY); //тк уже включено
         glDrawElements(GL_TRIANGLES, this->faces.size()*3, GL_UNSIGNED_INT, this->faces.data());
     }
     if (this->draw_frame)
     {
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         glDisableClientState(GL_COLOR_ARRAY);
         glColor3f(0.f,1.f,1.f);
         glDrawElements(GL_LINES, this->edges.size()*2, GL_UNSIGNED_INT, this->edges.data());
     }
 
     glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
+    if (this->textured) glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 #include <string>
 extern std::string DATA_PATH;
 void Object::loadFromFile(const char* fileName)
 {
-    std::ifstream f(DATA_PATH + "objects\\" + fileName);
+    std::ifstream f(DATA_PATH + "\\objects\\" + fileName);
     if (f.is_open())
     {
         std::string line;
@@ -55,6 +67,11 @@ void Object::loadFromFile(const char* fileName)
             str >> fw;
             //комментарий
             if (fw == "#") continue;
+            //комментарий
+            if (fw == "textured") {
+                this->textured = true;
+                continue;
+            }
 
             //вершина
             if (fw == "v") {
@@ -65,9 +82,18 @@ void Object::loadFromFile(const char* fileName)
             }
             //цвет
             if (fw == "c") {
+                if (this->textured) continue;
                 float r, g, b;
                 str >> r; str >> g; str >> b;
                 this->colors.push_back({r, g, b});
+                continue;
+            }
+            //uv координаты
+            if (fw == "uv") {
+                if (!this->textured) continue;
+                float u, v;
+                str >> u; str >> v;
+                this->uv.push_back({u, v});
                 continue;
             }
             //грань
@@ -90,4 +116,9 @@ void Object::loadFromFile(const char* fileName)
     {
         std::cerr << "File didnt open! Object didnt load!" << std::endl;
     }
+}
+
+void Object::setTexture(unsigned int texture)
+{
+    this->texture = texture;
 }

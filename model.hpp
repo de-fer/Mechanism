@@ -25,6 +25,8 @@ private:
     void display();
     Camera camera;
     void scene();
+    void loadTextures();
+    std::vector<unsigned int> textures;
     std::array<Object,1> objects;
 };
 

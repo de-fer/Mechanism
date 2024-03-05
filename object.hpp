@@ -16,9 +16,14 @@ public:
     void draw();
 
     void loadFromFile(const char* fileName);
+    void setTexture(unsigned int texture);
 private:
+    unsigned int texture = 0;
+
+    bool textured = false;
     std::vector<std::array<float, 3>> vertexes;
     std::vector<std::array<float, 3>> colors;
+    std::vector<std::array<float, 2>> uv;
     std::vector<std::array<unsigned int, 2>> edges;
     std::vector<std::array<unsigned int, 3>> faces;
 };

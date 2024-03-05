@@ -15,6 +15,8 @@ add_executable(Mechanism main.cpp
     settings.hpp
     object.hpp object.cpp
     src/Camera/camera.hpp src/Camera/camera.cpp
+    src/textureLoader.hpp
+    src/stb_image.h
 )
 
 include(GNUInstallDirs)
