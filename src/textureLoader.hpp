@@ -26,7 +26,6 @@ unsigned int loadTexture(std::string file)
     //освобождение памяти
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    std::cout << textureID;
     return textureID;
 }
 

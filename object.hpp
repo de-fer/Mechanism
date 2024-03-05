@@ -10,8 +10,8 @@ public:
     Object();
     ~Object();
 
-    bool draw_frame = true,
-    draw_faces = true;
+    bool draw_frame = false,
+    draw_faces = false;
 
     void draw();
 

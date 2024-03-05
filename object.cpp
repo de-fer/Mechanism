@@ -72,6 +72,14 @@ void Object::loadFromFile(const char* fileName)
                 this->textured = true;
                 continue;
             }
+            if (fw == "draw_frame") {
+                this->draw_frame = true;
+                continue;
+            }
+            if (fw == "draw_faces") {
+                this->draw_faces = true;
+                continue;
+            }
 
             //вершина
             if (fw == "v") {
