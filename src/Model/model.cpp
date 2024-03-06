@@ -181,7 +181,7 @@ void Model::scene()
         this->objects.at(i).draw();
 }
 
-#include "src/textureLoader.hpp"
+#include "../textureLoader.hpp"
 void Model::loadTextures()
 {
     generateDefaultTexture();

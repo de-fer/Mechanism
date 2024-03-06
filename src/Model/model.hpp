@@ -1,9 +1,9 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 
-#include "settings.hpp"
-#include "object.hpp"
-#include "src/Camera/camera.hpp"
+#include "../settings.hpp"
+#include "../Object/object.hpp"
+#include "../Camera/camera.hpp"
 
 #include <GLFW/glfw3.h>
 #include <vector>

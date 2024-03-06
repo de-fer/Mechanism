@@ -1,7 +1,7 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include "../../settings.hpp"
+#include "../settings.hpp"
 
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>

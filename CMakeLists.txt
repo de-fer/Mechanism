@@ -11,12 +11,11 @@ find_package(glm REQUIRED)
 find_package(nlohmann_json REQUIRED)
 
 add_executable(Mechanism main.cpp
-    model.hpp model.cpp
-    settings.hpp
-    object.hpp object.cpp
+    src/Model/model.hpp src/Model/model.cpp
+    src/settings.hpp
+    src/Object/object.hpp src/Object/object.cpp
     src/Camera/camera.hpp src/Camera/camera.cpp
     src/textureLoader.hpp
-    src/stb_image.h
 )
 
 include(GNUInstallDirs)

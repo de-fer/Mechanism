@@ -1,5 +1,5 @@
-#include "model.hpp"
-#include "object.hpp"
+#include "src/Model/model.hpp"
+#include "src/Object/object.hpp"
 #include <string>
 
 std::string DATA_PATH;
