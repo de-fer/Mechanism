@@ -27,7 +27,7 @@ void Object::draw()
     glRotatef(this->orient.x, 1.f, 0.f, 0.f);
     glRotatef(this->orient.y, 0.f, 1.f, 0.f);
 
-    glColor3f(1.f,1.f,1.f);
+    glColor4f(1.f,1.f,1.f, 1.f);
     glVertexPointer(3, GL_FLOAT, 0, this->vertexes.data());
     glEnableClientState(GL_VERTEX_ARRAY);
     if (this->textured)

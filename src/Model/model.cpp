@@ -154,6 +154,9 @@ void Model::createWindow()
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_NORMALIZE);
 
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.9);
+
     glLineWidth(2);
 
     glClearColor(this->ws.bg_r, this->ws.bg_g, this->ws.bg_b, this->ws.bg_a); //заливка заднего фона
