@@ -40,7 +40,8 @@ Model::Model()
     this->objects.at(0).loadFromFile("axis.txt");
     this->objects.at(1).loadFromFile("square.txt");
     this->objects.at(2).loadFromFile("triangle.txt");
-    this->objects.at(1).setTexture(this->textures.at(0));
+    this->objects.at(1).setTexture(this->textures["t1"]);
+    this->objects.at(2).setTexture(this->textures["grass"]);
 
     this->objects.at(1).setPosition(0,2,0);
     this->objects.at(2).setPosition(2,0,0);
@@ -151,7 +152,7 @@ void Model::createWindow()
     // glEnable(GL_LIGHT0);
     // glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_DEPTH_TEST);
-    // glEnable(GL_NORMALIZE);
+    //glEnable(GL_NORMALIZE);
 
     glLineWidth(2);
 
@@ -185,7 +186,18 @@ void Model::scene()
 void Model::loadTextures()
 {
     generateDefaultTexture();
-    this->textures.push_back(loadTexture(DATA_PATH+"\\textures\\"+"t1.png"));
+
+    //получение названий всех текстур
+    std::vector<std::string> file_names;
+    getFileNames(&file_names, DATA_PATH+"\\textures");
+    for (int i = 0; i < file_names.size(); ++i)
+    {
+        size_t dot_pos = file_names.at(i).find('.');
+        std::string substr = file_names.at(i).substr(0, dot_pos);
+        //std::cout << substr << std::endl; //DEBUG вывод названий всех текстур
+        //загрузка текстуры
+        this->textures[substr] = loadTexture(DATA_PATH+"\\textures\\"+substr+".png");
+    }
 }
 
 void Model::close()

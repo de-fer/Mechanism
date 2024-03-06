@@ -6,7 +6,10 @@
 #include "../Camera/camera.hpp"
 
 #include <GLFW/glfw3.h>
+
+#include <string>
 #include <vector>
+#include <map>
 
 class Model
 {
@@ -29,7 +32,7 @@ private:
     Camera camera;
     void scene();
     void loadTextures();
-    std::vector<unsigned int> textures;
+    std::map<std::string, unsigned int> textures;
     std::array<Object,3> objects;
 
     bool cursor_status = false;

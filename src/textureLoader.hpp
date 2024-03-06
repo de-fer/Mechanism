@@ -28,26 +28,48 @@ void generateDefaultTexture()
 
 unsigned int loadTexture(std::string file)
 {
-    //подготовка текстуры
-    GLuint textureID;
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
     //загрузка текстуры
     int w, h, count;
     unsigned char *data = stbi_load(file.data(), &w, &h, &count, 0);
-    glTexImage2D(GL_TEXTURE_2D, 0, count == 4? GL_RGBA : GL_RGB, w, h, 0, count == 4? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
+    //загрузилась ли текстура?
+    GLuint textureID;
+    if(w+h > 0)
+    {
+        //подготовка текстуры
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, count == 4? GL_RGBA : GL_RGB, w, h, 0, count == 4? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, data);
 
-    //настройка текстуры
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        //настройка текстуры
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    //освобождение памяти
-    glBindTexture(GL_TEXTURE_2D, 0);
+        //освобождение памяти
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+    else
+    {
+        //если не загрузилась
+        std::cerr << "texture:dont load (" << file << ')' << std::endl;
+        textureID = 0;
+    }
 
     return textureID;
+}
+
+#include <filesystem>
+#include <vector>
+#include <string>
+void getFileNames(std::vector<std::string> *files,std::string path)
+{
+    for (const auto & entry : std::filesystem::directory_iterator(path))
+    {
+        if (entry.is_regular_file()) {
+            files->push_back(entry.path().filename().string());
+        }
+    }
 }
 
 #endif // TEXTURELOADER_H
