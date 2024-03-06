@@ -9,6 +9,7 @@
 
 Object::Object()
 {
+    this->texture_name = "";
     this->pos = glm::vec3();
     this->orient = glm::vec3();
 }
@@ -93,6 +94,12 @@ void Object::loadFromFile(const char* fileName)
                 continue;
             }
 
+            //имя текстуры
+            if (fw == "t") {
+                str >> this->texture_name;
+                continue;
+            }
+
             //вершина
             if (fw == "v") {
                 float x, y, z = 0;
@@ -138,9 +145,9 @@ void Object::loadFromFile(const char* fileName)
     }
 }
 
-void Object::setTexture(unsigned int texture)
+void Object::setTexture(std::map<std::string, unsigned int> *textures)
 {
-    this->texture = texture;
+    this->texture = (*textures)[this->texture_name];
 }
 
 void Object::drawFrame(bool val)

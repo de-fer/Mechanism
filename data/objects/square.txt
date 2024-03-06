@@ -2,6 +2,8 @@ textured
 draw_frame
 draw_faces
 
+t grass
+
 v -1 0 -1
 v 1 0 -1
 v 1 0 1

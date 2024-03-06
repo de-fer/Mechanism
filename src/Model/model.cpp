@@ -40,8 +40,8 @@ Model::Model()
     this->objects.at(0).loadFromFile("axis.txt");
     this->objects.at(1).loadFromFile("square.txt");
     this->objects.at(2).loadFromFile("triangle.txt");
-    this->objects.at(1).setTexture(this->textures["t1"]);
-    this->objects.at(2).setTexture(this->textures["grass"]);
+    this->objects.at(1).setTexture(&this->textures);
+    this->objects.at(2).setTexture(&this->textures);
 
     this->objects.at(1).setPosition(0,2,0);
     this->objects.at(2).setPosition(2,0,0);
