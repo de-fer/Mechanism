@@ -69,7 +69,8 @@ void Object::draw()
 extern std::string DATA_PATH;
 void Object::loadFromFile(const char* fileName)
 {
-    std::ifstream f(DATA_PATH + "\\objects\\" + fileName);
+    //ут можно изменить формат файла объекта
+    std::ifstream f(DATA_PATH + "\\objects\\" + fileName + ".txt");
     if (f.is_open())
     {
         std::string line;
@@ -141,8 +142,13 @@ void Object::loadFromFile(const char* fileName)
     }
     else
     {
-        std::cerr << "File didnt open! Object didnt load!" << std::endl;
+        std::cerr << "ERR::OBJECT::File didnt open! Object didnt load!" << std::endl;
     }
+}
+
+void Object::changeTextureName(std::string name)
+{
+    this->texture_name = name;
 }
 
 void Object::setTexture(std::map<std::string, unsigned int> *textures)

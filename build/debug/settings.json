@@ -1,5 +1,6 @@
 {
     "data_path": "..\\..\\data",
+    "scene_name": "scene",
     "window":
     {
         "fullscreen": false,
@@ -28,7 +29,7 @@
     "camera":
     {
         "size": 0.1,
-        "speed": 0.01,
+        "speed": 0.003,
         "speed_multiple": 4.0,
         "near": 2,
         "far": 10000,

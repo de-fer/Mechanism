@@ -2,7 +2,7 @@
 #define MODEL_HPP
 
 #include "../settings.hpp"
-#include "../Object/object.hpp"
+#include "../Scene/scene.hpp"
 #include "../Camera/camera.hpp"
 
 #include <GLFW/glfw3.h>
@@ -30,10 +30,10 @@ private:
 
     void display();
     Camera camera;
-    void scene();
     void loadTextures();
     std::map<std::string, unsigned int> textures;
-    std::array<Object,3> objects;
+
+    Scene scene;
 
     bool cursor_status = false;
 };

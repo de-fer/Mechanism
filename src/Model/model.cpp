@@ -20,6 +20,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 Model::Model()
 {
+    this->scene = Scene();
     this->loadSettings();
     //инициализация glfw
     try
@@ -36,17 +37,8 @@ Model::Model()
 
     glfwSetKeyCallback(this->window, key_callback);
 
-    //переместить в loadScene()
-    this->objects.at(0).loadFromFile("axis.txt");
-    this->objects.at(1).loadFromFile("square.txt");
-    this->objects.at(2).loadFromFile("triangle.txt");
-    this->objects.at(1).setTexture(&this->textures);
-    this->objects.at(2).setTexture(&this->textures);
-
-    this->objects.at(1).setPosition(0,2,0);
-    this->objects.at(2).setPosition(2,0,0);
-    this->objects.at(1).setOrientation(0,0,-45);
-    this->objects.at(2).setOrientation(0,0,-45);
+    this->scene.setTextures(&this->textures);
+    this->scene.load();
 }
 
 Model::~Model()
@@ -78,9 +70,10 @@ void Model::loadSettings()
         {
             json data = json::parse(f);
             DATA_PATH = data["data_path"]; //сохраняем путь к папке data
+            this->scene.setName(data["scene_name"]);
+
             data = data["window"];//переходим в настройки window
             //std::cout << data << std::endl;
-
             //записываем считанные параметры
             this->ws.fullscreen = data["fullscreen"];
             this->ws.width = data["width"];
@@ -175,14 +168,8 @@ void Model::display()
     }
     this->camera.updateSizes(this->ws.width, this->ws.height);
     this->camera.apply();
-    this->scene();
+    this->scene.draw();
     glPopMatrix();
-}
-
-void Model::scene()
-{
-    for (int i =0; i < this->objects.size(); ++i)
-        this->objects.at(i).draw();
 }
 
 #include "../textureLoader.hpp"

@@ -1,0 +1,24 @@
+# очерёдность поворотов ориентации: z x y
+# o - загрузить объект
+# t - изменить текстуру последнему объекту
+
+# o|название|x y z|ориентация (град)|
+o   axis     0 0 0   0 0 0
+o   square   0 2 0   0 0 -45
+o   triangle 2 0 0   0 0 -45
+o   piramide -2 -2 0 0 0 0
+
+o piramide -5 -12 2 90 0  0
+o piramide -5 -10 2 75 0  0
+o piramide -5 -8  2 60 0  0
+o piramide -5 -6  2 45 0  0
+o piramide -5 -4  2 30 0  0
+o piramide -5 -2  2 15 0  0
+o piramide -5  0  2 0  0  0 
+t golub
+o piramide -5  2  2 0  15 0
+o piramide -5  4  2 0  30 0
+o piramide -5  6  2 0  45 0
+o piramide -5  8  2 0  60 0
+o piramide -5  10 2 0  75 0
+o piramide -5  12 2 0  90 0

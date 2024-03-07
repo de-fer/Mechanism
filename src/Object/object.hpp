@@ -16,6 +16,7 @@ public:
     void draw();
 
     void loadFromFile(const char* fileName);
+    void changeTextureName(std::string name);
     void setTexture(std::map<std::string, unsigned int>* textures);
 
     void drawFrame(bool val);
